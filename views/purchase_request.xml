@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="purchase_request_form" model="ir.ui.view">
+            <field name="name">purchase_request_form</field>
+            <field name="model">purchase.request</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Request" attrs="{'edit': [('state', '=', 'draft')]}">
+                    <!-- Header -->
+                    <header>
+                        <button name="action_draft" type="object" string="Draft"
+                            attrs="{'invisible':[('state','=','confirmed')]}" />
+
+                        <button name="action_confirmed" type="object" string="Confirmed"
+                            class="oe_highlight" attrs="{'invisible':[('state','=','confirmed')]}" />
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" />
+                    </header>
+                    <!-- Sheet -->
+                    <sheet>
+
+                        <div class="oe_button_box" name="smart_tab">
+                            <button name="action_view_purchase_order" type="object"
+                                class="oe_stat_button" icon="fa-cogs">
+                                <field name="purchase_order_count" string="Orders"
+                                    widget="statinfo" />
+                            </button>
+                        </div>
+                        <group>
+                            <groub name="creation" string="Creation">
+                                <group>
+                                    <field name="analytic_account_id"
+                                        attrs="{'readonly': [('state', '=', 'confirmed')]}" />
+                                </group>
+                                <group>
+                                    <field name="create_uid" string="Created by"
+                                        widget="many2one_avatar" />
+                                </group>
+                                <group>
+                                    <field name="create_date" string="Created Date" />
+                                </group>
+                            </groub>
+
+                            <groub name="requesting" string="Requesting">
+                                <group>
+                                    <field name="requested_by" widget="many2one_avatar"
+                                        string="Requested by"
+                                        attrs="{'readonly': [('state', '=', 'confirmed')]}" />
+                                </group>
+                                <group>
+                                    <field name="requested_on" string="Requested on"
+                                        attrs="{'readonly': [('state', '=', 'confirmed')]}" />
+                                </group>
+                            </groub>
+                        </group>
+                        <!-- Notebook -->
+                        <notebook>
+                            <page name="purchase_orders" string="Purchase Orders">
+                                <field name="purchase_request_line_ids">
+                                    <tree string="Caption"
+                                        attrs="{'create': [('state', '=', 'draft')] ,
+                                        'delete':[('state', '=', 'draft')],
+                                        'edit':[('state', '=', 'draft')]}"
+                                        editable="top">
+                                        <field name="product_id"
+                                            attrs="{'readonly': [('state', '=', 'confirmed')]}" />
+                                        <field name="partner_id" widget="many2one_avatar"
+                                            attrs="{'readonly': [('state', '=', 'confirmed')]}" />
+                                        <field name="quantity"
+                                            attrs="{'readonly': [('state', '=', 'confirmed')]}" />
+                                        <field name="product_uom"
+                                            attrs="{'readonly': [('state', '=', 'confirmed')]}" />
+                                        <field name="state" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_request_tree" model="ir.ui.view">
+            <field name="name">purchase_request.view.tree</field>
+            <field name="model">purchase.request</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Requests">
+                    <field name="create_date" />
+                    <field name="create_uid" />
+                    <field name="requested_by" />
+                    <field name="requested_on" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="purchase_request_action" model="ir.actions.act_window">
+            <field name="name">Purchase requests</field>
+            <field name="res_model">purchase.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face"> Request Your First Purchase </p>
+            </field>
+        </record>
+
+
+        <menuitem
+            id="purchase_order_menu"
+            name="Purchase requests"
+            parent="purchase.menu_purchase_root"
+            action="purchase_request_action"
+        />
+
+    </data>
+</odoo>
