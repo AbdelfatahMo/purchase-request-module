@@ -8,8 +8,8 @@
 
     'description': "",
 
-    'author': "YDS",
-    'website': "www.yds-int.com",
+    'author': "Abdelfatah Mohamad",
+    'website': "abdelfatah.mohamad.99@gmail.com",
 
     # Categories can be used to filter modules in modules listing
     'category': 'Purchase',
