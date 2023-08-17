@@ -13,7 +13,7 @@
 
     # Categories can be used to filter modules in modules listing
     'category': 'Purchase',
-    'version': '15.0.0.0',
+    'version': '16.0.0.0',
     "license": "AGPL-3",
     'sequence': -10,
     # any module necessary for this one to work correctly

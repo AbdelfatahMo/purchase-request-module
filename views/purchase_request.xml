@@ -18,7 +18,6 @@
                     </header>
                     <!-- Sheet -->
                     <sheet>
-
                         <div class="oe_button_box" name="smart_tab">
                             <button name="action_view_purchase_order" type="object"
                                 class="oe_stat_button" icon="fa-cogs">
@@ -31,12 +30,8 @@
                                 <group>
                                     <field name="analytic_account_id"
                                         attrs="{'readonly': [('state', '=', 'confirmed')]}" />
-                                </group>
-                                <group>
                                     <field name="create_uid" string="Created by"
                                         widget="many2one_avatar" />
-                                </group>
-                                <group>
                                     <field name="create_date" string="Created Date" />
                                 </group>
                             </groub>
@@ -46,8 +41,6 @@
                                     <field name="requested_by" widget="many2one_avatar"
                                         string="Requested by"
                                         attrs="{'readonly': [('state', '=', 'confirmed')]}" />
-                                </group>
-                                <group>
                                     <field name="requested_on" string="Requested on"
                                         attrs="{'readonly': [('state', '=', 'confirmed')]}" />
                                 </group>
